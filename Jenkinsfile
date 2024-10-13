@@ -3,6 +3,9 @@ pipeline {
     tools {
         maven 'jenkins-maven'
     }
+    options {
+          timeout(time: 10, unit: 'MINUTES')
+      }
 
     stages {
         stage('Git Checkout') {
@@ -23,7 +26,6 @@ pipeline {
         }
         stage("Quality Gate") {
             steps {
-                timeout(time: 10, unit: 'MINUTES')
                 waitForQualityGate abortPipeline: true
                 echo 'Quality Gate Completed'
             }
