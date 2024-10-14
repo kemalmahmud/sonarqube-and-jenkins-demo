@@ -26,9 +26,10 @@ pipeline {
         }
         stage("Quality Gate") {
             steps {
-                sleep(10)
-                waitForQualityGate abortPipeline: true
-                echo 'Quality Gate Completed'
+                retry(3){
+                    waitForQualityGate abortPipeline: true
+                    echo 'Quality Gate Completed'
+                }
             }
         }
 
