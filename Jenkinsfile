@@ -4,7 +4,6 @@ pipeline {
         maven 'jenkins-maven'
     }
     options {
-          sleep(10)
           timeout(time: 5, unit: 'MINUTES')
       }
 
@@ -26,6 +25,7 @@ pipeline {
             }
         }
         stage("Quality Gate") {
+            sleep(10)
             steps {
                 waitForQualityGate abortPipeline: true
                 echo 'Quality Gate Completed'
