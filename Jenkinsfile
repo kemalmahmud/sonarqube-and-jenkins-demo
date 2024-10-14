@@ -4,7 +4,7 @@ pipeline {
         maven 'jenkins-maven'
     }
     options {
-          timeout(time: 3, unit: 'MINUTES')
+          timeout(time: 5, unit: 'MINUTES')
       }
 
     stages {
@@ -46,7 +46,7 @@ pipeline {
                     withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhub-password')]) {
                         bat ''' docker login -u kemalbarca -p "%dockerhub-password%" '''
                     }
-                    bat 'docker push kemalbarca/sonarqubeAndJenkinsDemo'
+                    bat 'docker push kemalbarca/sonarqubeandjenkinsdemo'
                 }
             }
         }
