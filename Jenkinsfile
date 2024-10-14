@@ -25,11 +25,11 @@ pipeline {
             }
         }
         stage("Quality Gate") {
-            sleep(10)
             steps {
                 waitForQualityGate abortPipeline: true
                 echo 'Quality Gate Completed'
             }
+            sleep(10)
         }
 
         stage('Build Docker Image') {
