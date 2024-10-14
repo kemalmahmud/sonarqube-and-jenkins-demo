@@ -31,26 +31,26 @@ pipeline {
 //             }
 //         }
 
-//         stage('Build Docker Image') {
-//             steps {
-//                 script {
-//                     bat 'docker build -t kemalmahmud/sonarqube-and-jenkins-demo .'
-//                     echo 'Build Docker Image Completed'
-//                 }
-//             }
-//         }
-//
-//         stage('Docker Push') {
-//             steps {
-//                 script {
-//                     withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhub-password')]) {
-//                         bat ''' docker login -u kemalbarca -p "%dockerhub-password%" '''
-//                     }
-//                     bat 'docker push kemalbarca/sonarqubeAndJenkinsDemo'
-//                 }
-//             }
-//         }
-//
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    bat 'docker build -t kemalmahmud/sonarqube-and-jenkins-demo .'
+                    echo 'Build Docker Image Completed'
+                }
+            }
+        }
+
+        stage('Docker Push') {
+            steps {
+                script {
+                    withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhub-password')]) {
+                        bat ''' docker login -u kemalbarca -p "%dockerhub-password%" '''
+                    }
+                    bat 'docker push kemalbarca/sonarqubeAndJenkinsDemo'
+                }
+            }
+        }
+
 //         stage ('Docker Run') {
 //             steps {
 //                 script {
@@ -59,11 +59,11 @@ pipeline {
 //                 }
 //             }
 //         }
-//
-//     }
-//     post {
-//         always {
-//             bat 'docker logout'
-//         }
-//     }
+
+    }
+    post {
+        always {
+            bat 'docker logout'
+        }
+    }
 }
