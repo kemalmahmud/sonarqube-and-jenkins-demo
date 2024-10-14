@@ -4,6 +4,7 @@ pipeline {
         maven 'jenkins-maven'
     }
     options {
+          sleep(10)
           timeout(time: 5, unit: 'MINUTES')
       }
 
