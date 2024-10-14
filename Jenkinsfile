@@ -34,7 +34,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    bat 'docker build -t kemalmahmud/sonarqube-and-jenkins-demo .'
+                    bat 'docker build -t kemalbarca/sonarqube-and-jenkins-demo .'
                     echo 'Build Docker Image Completed'
                 }
             }
