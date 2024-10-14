@@ -4,7 +4,7 @@ pipeline {
         maven 'jenkins-maven'
     }
     options {
-          timeout(time: 10, unit: 'MINUTES')
+          timeout(time: 3, unit: 'MINUTES')
       }
 
     stages {
