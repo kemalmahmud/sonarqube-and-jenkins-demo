@@ -24,12 +24,12 @@ pipeline {
                 }
             }
         }
-//         stage("Quality Gate") {
-//             steps {
-//                 waitForQualityGate abortPipeline: true
-//                 echo 'Quality Gate Completed'
-//             }
-//         }
+        stage("Quality Gate") {
+            steps {
+                waitForQualityGate abortPipeline: true
+                echo 'Quality Gate Completed'
+            }
+        }
 
         stage('Build Docker Image') {
             steps {
@@ -46,7 +46,7 @@ pipeline {
                     withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhub-password')]) {
                         bat ''' docker login -u kemalbarca -p "%dockerhub-password%" '''
                     }
-                    bat 'docker push kemalbarca/sonarqubeandjenkinsdemo'
+                    bat 'docker push kemalbarca/sonarqube-and-jenkins-demo'
                 }
             }
         }
