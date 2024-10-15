@@ -24,12 +24,12 @@ pipeline {
                 }
             }
         }
-//         stage("Quality Gate") {
-//             steps {
-//                 waitForQualityGate abortPipeline: true
-//                 echo 'Quality Gate Completed'
-//             }
-//         }
+        stage("Quality Gate") {
+            steps {
+                waitForQualityGate abortPipeline: true
+                echo 'Quality Gate Completed'
+            }
+        }
 
         stage('Build Docker Image') {
             steps {
@@ -62,8 +62,19 @@ pipeline {
 
     }
     post {
-        always {
-            bat 'docker logout'
+        success {
+            script{
+                 withCredentials([string(credentialsId: 'telegram-token', variable: 'TOKEN'), string(credentialsId: 'telegram-chat-id', variable: 'CHAT_ID')]) {
+                    bat ''' curl -s -X POST https://api.telegram.org/bot"%TOKEN%"/sendMessage -d chat_id="%CHAT_ID%" -d text="%TEXT_SUCCESS_BUILD%" '''
+                 }
+            }
+        }
+        failure {
+            script{
+                withCredentials([string(credentialsId: 'telegram-token', variable: 'TOKEN'), string(credentialsId: 'telegram-chat-id', variable: 'CHAT_ID')]) {
+                    bat ''' curl -s -X POST https://api.telegram.org/bot"%TOKEN%"/sendMessage -d chat_id="%CHAT_ID%" -d text="%TEXT_FAILURE_BUILD%" '''
+                }
+            }
         }
     }
 }
